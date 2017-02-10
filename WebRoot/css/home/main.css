@@ -1,0 +1,54 @@
+.picture_panel {
+	width: 1024px;
+	height: 200px;
+	background-color: red;
+}
+
+.fast_panel {
+	width: 1024px;
+	height: 300px;
+	margin: auto;
+	border-bottom: 1px solid #bbbbbb;
+}
+
+/*Ê×Ò³Í¼±ê*/
+.img_contain {
+	border: 0px;
+	width: 55px;
+	height: 55px;
+	border-radius: 5px;
+	float: left;
+	margin: 30px 100px;
+	cursor: pointer;
+}
+
+.img_contain>img {
+	display: inline-block;
+	margin: 15px;
+	width: 25px;
+	height: 25px;
+}
+
+.img_contain>label {
+	display: inline-block;
+	width: 110px;
+	margin-left: -27px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.img_contain:hover {
+	width: 59px;
+	height: 59px;
+	margin: 28px 98px;
+}
+
+.img_contain:hover>img {
+	width: 29px;
+	height: 29px;
+}
+
+.img_contain:hover>label {
+	width: 114px;
+	font-size: 15px;
+}

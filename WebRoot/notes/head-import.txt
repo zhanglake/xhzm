@@ -1,0 +1,13 @@
+<!-- 全局CSS文件default.css -->
+<link rel="stylesheet" type="text/css" href="css/home/default.css"/>
+
+<!-- 引入jquery -->
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+<!-- 引入bootstrap -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- 引入bootstrap表格 -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap-table.css"/>
+<script type="text/javascript" src="js/bootstrap-table.js"></script>

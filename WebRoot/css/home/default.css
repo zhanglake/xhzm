@@ -1,0 +1,251 @@
+html {
+	margin: 0px;
+	height: 100%;
+}
+
+body {
+	font-size: 14px;
+	font-family: 微软雅黑;
+	margin: 0px;
+	height: 100%;
+	padding: 0px;
+	border: 0px;
+	height: 100%;
+}
+
+.main_contain {
+	width: 1024px;
+	margin: 0px auto;
+}
+
+.right_side {
+	margin-left: 203px;
+	height: 100%;
+}
+
+.main_content {
+	padding: 10px 10px 10px 10px;
+}
+
+.tab_panel {
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.tab_panel>label {
+	display: inline-block;
+	float: left;
+	width: 100px;
+	text-align: center;
+	line-height: 58px;
+	width: 100px;
+	border: 1px solid #ffffff;
+	border-width: 2px 0px 0px 1px;
+	cursor: pointer;
+}
+
+.tab_panel>label.actived,.tab_panel>label:hover {
+	border: 1px solid #eaeaea;
+	border-top: 2px solid #1ab394;
+	border-width: 2px 0px 0px 1px;
+}
+
+.tab_panel>label.actived {
+	border-right: 1px solid #eaeaea;
+}
+
+.table_panel {
+	display: inline-block;
+	width: 100%;
+	margin: auto;
+	padding: 20px 0px;
+}
+
+/*导航菜单样式*/
+.nav {
+	width: 203px;
+	height: 100%;
+	background-color: #2f4050;
+	float: left;
+}
+
+.nav>.nav_div {
+	display: inline-block;
+	width: 200px;
+	height: 45px;
+	border-left: 3px solid #2f4050;
+}
+
+.nav>.nav_div>a {
+	display: inline-block;
+	width: 150px;
+	height: 45px;
+	line-height: 45px;
+	text-decoration: none;
+	text-align: left;
+	color: #a4b8c6;
+	margin: 0px 0px 0px 50px;
+}
+
+.nav>.nav_div:hover,.nav>.nav_div_selected {
+	background-color: #293846;
+	border-left: 3px solid #1ab394;
+}
+
+.nav>.nav_div:hover>a,.nav>.nav_div_selected>a {
+	color: #ffffff;
+}
+
+/*页面容器*/
+.panel_content {
+	background-color: #ffffff;
+	border: 0px;
+	display: inline-block;
+	border: 1px solid #eaeaea;
+	padding: 0px 10px;
+	border-radius: 10px;
+}
+
+.panel_title {
+	border: 1px solid #bbbbbb;
+	border-width: 0px 0px 1px 0px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 18px;
+	padding-left: 20px;
+	margin: 0px;
+}
+
+/*��������ʽ*/
+table {
+	border: 1px solid #eaeaea;
+	border-width: 1px 0px 0px 1px;
+	margin: auto;
+}
+
+tr {
+	height: 30px;
+}
+
+th {
+	border: 1px solid #eaeaea;
+	border-width: 0px 1px 1px 0px;
+	background-color: #f2f2f2;
+	width: 150px;
+	padding: 0px 5px;
+}
+
+th:last-child {
+	width: 200px;
+}
+
+td {
+	border: 1px solid #eaeaea;
+	border-width: 0px 1px 1px 0px;
+	width: 150px;
+	padding: 0px 5px;
+}
+
+td:last-child {
+	width: 200px;
+	text-align: center;
+}
+
+td>a {
+	text-decoration: none;
+	color: blue;
+}
+
+/*�����ʽ*/
+.content {
+	width: 1000px;
+	border: 1px solid #ebebeb;
+	margin: auto;
+}
+
+.content_title {
+	border-bottom: 1px solid #eaeaea;
+	background-color: #f2f2f2;
+	line-height: 40px;
+	padding: 0px 20px;
+}
+
+.content_panel {
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/*��ť*/
+.btn-1 {
+	color: #ffffff !important;
+	background-color: #13ba94 !important;
+	border: 0px !important;
+	width: 60px !important;
+	height: 30px !important;
+	line-height: 30px;
+	cursor: pointer !important;
+	border-radius: 3px !important;
+}
+
+.btn-2 {
+	color: #ffffff !important;
+	background-color: #f99f31 !important;
+	border: 0px !important;
+	width: 60px !important;
+	height: 30px !important;
+	line-height: 30px;
+	cursor: pointer !important;
+	border-radius: 3px !important;
+}
+
+.btn-add {
+	color: #ffffff !important;
+	background-color: #1ab394 !important;
+	border: 0px !important;
+	width: 40px !important;
+	height: 30px !important;
+	line-height: 30px;
+	cursor: pointer !important;
+	border-radius: 3px !important;
+}
+
+.input_label {
+	display: inline-block;
+	width: 300px;
+	height: 30px;
+	line-height: 30px;
+	text-align: right;
+	padding-right: 10px; 
+}
+
+.form_input {
+	width: 340px;
+	height: 28px;
+	border: 1px solid #bbbbbb;
+	border-radius: 3px;
+}
+
+.detail_div {
+	width: 800px;
+	border: 1px solid #eaeaea;
+	border-left: 3px solid #1ab394;
+	margin: 10px 0px 10px 100px ;
+}
+
+.detail_input_label {
+	display: inline-block;
+	width: 197px;
+	height: 30px;
+	line-height: 30px;
+	text-align: right;
+	padding-right: 10px; 
+}
+
+.form_detail_input {
+	width: 100px;
+	height: 28px;
+	border: 1px solid #bbbbbb;
+	border-radius: 3px;
+}
