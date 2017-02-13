@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="js/bootstrap-table-export.js"></script>
 		<script type="text/javascript" src="js/tableExport.js"></script>
 		<script type="text/javascript" src="js/plugins/z-notice.js"></script>
+		<script type="text/javascript" src="js/jquery.slimscroll.js"></script>
 		<script type="text/javascript" src="js/home/manage.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="css/home/default.css" />
@@ -31,14 +32,12 @@
 					<label id="order_tab" style="display: none;">
 						订单详情
 					</label>
-					<label id="add_order_tab" style="display: none;">
-						新增订单
-					</label>
-					<button id="add_order_btn" class="btn-1"
+					<!-- <button id="add_order_btn" class="btn-1"
 						style="float: right; margin-top: 10px; margin-right: 20px;">
 						添加
-					</button>
+					</button> -->
 				</div>
+				<!-- 客户查询，添加 -->
 				<div class="table_panel" id="tab1">
 					<div style="width: 800px; height: 300px; margin: auto;">
 						<form class="form-horizontal" id="cust-form">
@@ -86,72 +85,66 @@
 							</div>
 						</form>
 						<button class="btn btn-primary" style="float: right;" id="save">
-							确 定
+							新 增
 						</button>
 					</div>
 					<table id="customer_table"></table>
 				</div>
+				
+				<!-- 客户订单查询，添加 -->
 				<div class="table_panel" id="tab2" style="display: none;">
+					<div style="width: 800px; height: 300px; margin: auto;">
+						<form class="form-horizontal" id="order-form">
+							<div>
+							<div class="form-group">
+								<label class="control-label col-sm-1" for="order-lamp-1">
+										品名
+								</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="order-lamp-1"
+										placeholder="品名">
+									<span id="order-lamp-1-block" class="help-block"
+										style="display: none;">请填写品名</span>
+								</div>
+								<label class="control-label col-sm-1" for="lamp-price-1">
+									单价
+								</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="lamp-price-1"
+										placeholder="单价">
+								</div>
+								<label class="control-label col-sm-1" for="lamp-number-1">
+									数量
+								</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="lamp-number-1"
+										placeholder="数量">
+									<span id="lamp-number-1-block" class="help-block"
+										style="display: none;">请输入数量</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-1" for="lamp-desc-1">
+									备注
+								</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="lamp-desc-1"
+										placeholder="备注">
+								</div>
+								<span id="new-lamp-line" class="btn-1" style="display: inline-block;text-align: center;"> + </span>
+							</div>
+						</div>
+						</form>
+						<button class="btn btn-primary" style="float: right;" id="save-order">
+							新 增
+						</button>
+					</div>
 					<table id="customer_order_table"></table>
 				</div>
+				
+				<!-- 客户订单详情查询 -->
 				<div class="table_panel" id="tab3" style="display: none;">
 					<table id="order_table"></table>
-				</div>
-				<div class="table_panel" id="tab4" style="display: none;">
-					<form method="post" action="orderAction!addOrder.action">
-						<div style="width: 100%; height: 30px; margin: 10px 0px;">
-							<label class="input_label">
-								客户姓名 :
-							</label>
-							<input type="text" id="customer_name" class="form_input" />
-							<input type="text" id="customer_id" name="orderCustomerId" />
-						</div>
-						<div style="width: 100%; height: 30px; margin: 10px 0px;">
-							<label class="input_label">
-								预计送货日期 :
-							</label>
-							<input type="text" id="delivery_date" class="form_input"
-								name="deliveryDate" />
-						</div>
-						<div style="width: 100%; height: 30px; margin: 10px 0px;">
-							<label class="input_label">
-								备注 :
-							</label>
-							<input type="text" id="order_description" class="form_input"
-								name="orderDescription" />
-						</div>
-						<div class="detail_div">
-							<div style="width: 100%; height: 30px; margin: 10px 0px;">
-								<label class="detail_input_label">
-									品名 :
-								</label>
-								<input type="text" name="lamp" class="form_input" />
-								<label id="add_div" class="btn-1"
-									style="margin-left: 20px; text-align: center;">
-									+
-								</label>
-							</div>
-							<div style="width: 100%; height: 30px; margin: 10px 0px;">
-								<label class="detail_input_label">
-									单价 :
-								</label>
-								<input type="text" name="price" class="form_detail_input" />
-								<label class="detail_input_label" style="width: 100px;">
-									数量 :
-								</label>
-								<input type="text" name="number" class="form_detail_input" />
-							</div>
-							<div style="width: 100%; height: 30px; margin: 10px 0px;">
-								<label class="detail_input_label">
-									备注 :
-								</label>
-								<input type="text" name="description" class="form_input" />
-							</div>
-						</div>
-						<button type="submit" id="submit" style="display: none;">
-							提交
-						</button>
-					</form>
 				</div>
 			</div>
 		</div>

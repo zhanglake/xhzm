@@ -1,12 +1,22 @@
 package com.xhzm.action;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.xhzm.dto.OrderCreateRequestDto;
+import com.xhzm.dto.OrderDetailDto;
+import com.xhzm.dto.ResponseResult;
 import com.xhzm.entity.Order;
 import com.xhzm.entity.OrderDetail;
 import com.xhzm.service.OrderService;
@@ -18,81 +28,61 @@ public class OrderAction {
 	@Resource
 	private OrderService orderService;
 
-	private List<String> lamp;
-	private List<String> price;
-	private List<String> number;
-	private List<String> description;
-	private int orderCustomerId;
-	private String orderDescription;
-	private String deliveryDate;
+	private String orderReq;
+	public String getOrderReq() { return orderReq; }
+	public void setOrderReq(String orderReq) { this.orderReq = orderReq; }
 
-	public void addOrder() {
-		int totalPrice = 0;
-		for (String p : price) {
-			totalPrice += Integer.parseInt(p);
+	// 新增订单和订单详情
+	public void createOrderAndOrderDetail() throws IOException {
+		OrderCreateRequestDto orderDto = this.builldOrderRequestFromJson(orderReq);
+		
+		Integer customerId = orderDto.getCustomerId();
+		List<OrderDetailDto> orderDetailDtos = orderDto.getOrderDetail();
+		
+		Double totalPrice = 0d;
+		for (OrderDetailDto dto : orderDetailDtos) {
+			System.out.println(dto.getLampName());
+			totalPrice += (double) dto.getLampPrice() * (double) dto.getLampNumber();
 		}
-		orderService.saveOrder(totalPrice, orderCustomerId, deliveryDate,
-				orderDescription);
-
-		int orderId = orderService.getNewOrderId();
-
-		orderService.saveOrderDetail(lamp, price, number, description, orderId);
+		orderService.saveOrder(totalPrice, customerId, "2017-02-03 00:00:00", "aaa");
+		Integer orderId = orderService.getNewOrderId();
+		
+		orderService.createOrderDetails(orderDetailDtos, orderId);
+		
+		ResponseResult result = new ResponseResult(200, "success");
+		JSONObject jsonObj = JSONObject.fromObject(result);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(jsonObj);
 	}
-
-	public List<String> getLamp() {
-		return lamp;
-	}
-
-	public void setLamp(List<String> lamp) {
-		this.lamp = lamp;
-	}
-
-	public List<String> getPrice() {
-		return price;
-	}
-
-	public void setPrice(List<String> price) {
-		this.price = price;
-	}
-
-	public List<String> getNumber() {
-		return number;
-	}
-
-	public void setNumber(List<String> number) {
-		this.number = number;
-	}
-
-	public List<String> getDescription() {
-		return description;
-	}
-
-	public void setDescription(List<String> description) {
-		this.description = description;
-	}
-
-	public String getOrderDescription() {
-		return orderDescription;
-	}
-
-	public void setOrderDescription(String orderDescription) {
-		this.orderDescription = orderDescription;
-	}
-
-	public int getOrderCustomerId() {
-		return orderCustomerId;
-	}
-
-	public void setOrderCustomerId(int orderCustomerId) {
-		this.orderCustomerId = orderCustomerId;
-	}
-
-	public String getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(String deliveryDate) {
-		this.deliveryDate = deliveryDate;
+	
+	private OrderCreateRequestDto builldOrderRequestFromJson (String jsonString) {
+		OrderCreateRequestDto orderCreateRequestDto = new OrderCreateRequestDto();
+		
+		// 解析json字符串
+		JSONObject jsonObject = JSONObject.fromObject(orderReq);
+		Integer customerId = jsonObject.getInt("customerId");
+		
+		JSONArray orderDetailListArray = JSONArray.fromObject(jsonObject.get("orderDetail")); 
+		
+		List<OrderDetailDto> orderDetailDtos = new ArrayList<OrderDetailDto>();
+		for (int i = 0;i < orderDetailListArray.size(); i ++) {
+			OrderDetailDto dto = new OrderDetailDto();
+			JSONObject orderDetailObj = orderDetailListArray.getJSONObject(i);
+			String lampName = orderDetailObj.getString("lampName");
+			Double lampPrice = orderDetailObj.getDouble("lampPrice");
+			Integer lampNumber = orderDetailObj.getInt("lampNumber");
+			String lampDesc = orderDetailObj.getString("lampDesc");
+			dto.setLampName(lampName);
+			dto.setLampPrice(lampPrice);
+			dto.setLampNumber(lampNumber);
+			dto.setLampDesc(lampDesc);
+			orderDetailDtos.add(dto);
+		}
+		orderCreateRequestDto.setCustomerId(customerId);
+		orderCreateRequestDto.setOrderDetail(orderDetailDtos);
+		
+		return orderCreateRequestDto;
 	}
 
 }

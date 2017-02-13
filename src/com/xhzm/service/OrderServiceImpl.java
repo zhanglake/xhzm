@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.xhzm.dao.OrderDao;
+import com.xhzm.dto.OrderDetailDto;
 import com.xhzm.entity.Order;
 import com.xhzm.entity.OrderDetail;
 
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void saveOrder(int totalPrice, int orderCustomerId,
+	public void saveOrder(Double totalPrice, int orderCustomerId,
 			String deliveryDate, String orderDescription) {
 		System.out.println(totalPrice + "," + orderCustomerId + "," + deliveryDate + "," + orderDescription);
 		orderDao.saveOrder(totalPrice, orderCustomerId, deliveryDate,
@@ -45,4 +46,8 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.saveOrderDetail(lamp, price, number, description, orderId);
 	}
 
+	@Override
+	public void createOrderDetails(List<OrderDetailDto> orderDetailDtos, int orderId) {
+		orderDao.createOrderDetails(orderDetailDtos, orderId);
+	}
 }

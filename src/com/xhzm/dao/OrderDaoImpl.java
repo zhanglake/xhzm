@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import com.xhzm.dto.OrderDetailDto;
 import com.xhzm.entity.Order;
 import com.xhzm.entity.OrderDetail;
 
@@ -63,11 +64,9 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 	}
 
 	@Override
-	public void saveOrder(int totalPrice, int orderCustomerId,
+	public void saveOrder(Double totalPrice, int orderCustomerId,
 			String deliveryDate, String orderDescription) {
 		
-		System.out.println(totalPrice + "," + orderCustomerId + "," + deliveryDate + "," + orderDescription);
-
 		Session session = this.getSession(true);
 		Transaction tc = (Transaction) session.beginTransaction();
 
@@ -134,6 +133,31 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 			query.executeUpdate();
 		}
 
+		try {
+			tc.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	@Override
+	public void createOrderDetails(List<OrderDetailDto> orderDetailDtos, int orderId) {
+		Session session = this.getSession(true);
+		Transaction tc = (Transaction) session.beginTransaction();
+		
+		for (OrderDetailDto orderDetail : orderDetailDtos) {
+			String sql = "insert into order_detail (lamp, price, number, description, order_id) values (?,?,?,?,?)";
+			Query query = session.createSQLQuery(sql);
+			query.setParameter(0, orderDetail.getLampName().trim());
+			query.setParameter(1, orderDetail.getLampPrice());
+			query.setParameter(2, orderDetail.getLampNumber());
+			query.setParameter(3, orderDetail.getLampDesc().trim());
+			query.setParameter(4, orderId);
+			query.executeUpdate();
+		}
+		
 		try {
 			tc.commit();
 		} catch (Exception e) {

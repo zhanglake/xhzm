@@ -137,6 +137,7 @@ public class ManageAction {
 	 * 根据指定客户的所有订单
 	 */
 	public void showOrderByCustomer() {
+		System.out.println(customerId);
 		List<Order> o = orderService.findAllOrderByCustomerId(customerId);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/plain;charset=UTF-8");

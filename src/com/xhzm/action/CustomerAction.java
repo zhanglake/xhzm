@@ -1,27 +1,21 @@
 package com.xhzm.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.json.annotations.JSON;
-import org.directwebremoting.json.types.JsonArray;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.xhzm.dto.CustomerCreateRequestDto;
 import com.xhzm.dto.ResponseResult;
-import com.xhzm.entity.Customer;
 import com.xhzm.entity.Order;
 import com.xhzm.entity.OrderDetail;
 import com.xhzm.service.CustomerService;
@@ -41,16 +35,6 @@ public class CustomerAction extends ActionSupport {
 	private CustomerService customerService;
 
 	private CustomerCreateRequestDto customerDto;
-
-	private Map<String, Object> dataMap;
-
-	public Map<String, Object> getDataMap() {
-		return dataMap;
-	}
-
-	public void setDataMap(Map<String, Object> dataMap) {
-		this.dataMap = dataMap;
-	}
 
 	private int customerId;
 
@@ -96,6 +80,7 @@ public class CustomerAction extends ActionSupport {
 
 	public void addCustomer() throws IOException {
 		customerService.saveCustomer(customerDto);
+		
 		ResponseResult result = new ResponseResult(200, SUCCESS);
 		JSONObject jsonObj = JSONObject.fromObject(result);
 		HttpServletResponse response = ServletActionContext.getResponse();
