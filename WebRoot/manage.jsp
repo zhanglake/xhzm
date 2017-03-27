@@ -93,9 +93,18 @@
 				
 				<!-- 客户订单查询，添加 -->
 				<div class="table_panel" id="tab2" style="display: none;">
-					<div style="width: 800px; height: 300px; margin: auto;">
+					<div style="width: 800px; min-height: 300px; margin: auto;">
 						<form class="form-horizontal" id="order-form">
 							<div>
+							<div class="form-group">
+								<label class="control-label col-sm-1" for="order-lamp-1">
+										配送
+								</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="delivery_date"
+										placeholder="计划配送日期">
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-1" for="order-lamp-1">
 										品名
@@ -135,7 +144,7 @@
 							</div>
 						</div>
 						</form>
-						<button class="btn btn-primary" style="float: right;" id="save-order">
+						<button class="btn btn-primary" style="position: relative;left: 745px;" id="save-order">
 							新 增
 						</button>
 					</div>

@@ -37,14 +37,17 @@ public class OrderAction {
 		OrderCreateRequestDto orderDto = this.builldOrderRequestFromJson(orderReq);
 		
 		Integer customerId = orderDto.getCustomerId();
+		String deliveryDate = orderDto.getDeliveryDate();
+		if (null == deliveryDate) {
+			deliveryDate = "";
+		}
 		List<OrderDetailDto> orderDetailDtos = orderDto.getOrderDetail();
 		
 		Double totalPrice = 0d;
 		for (OrderDetailDto dto : orderDetailDtos) {
-			System.out.println(dto.getLampName());
 			totalPrice += (double) dto.getLampPrice() * (double) dto.getLampNumber();
 		}
-		orderService.saveOrder(totalPrice, customerId, "2017-02-03 00:00:00", "aaa");
+		orderService.saveOrder(totalPrice, customerId, deliveryDate, "");
 		Integer orderId = orderService.getNewOrderId();
 		
 		orderService.createOrderDetails(orderDetailDtos, orderId);
@@ -62,6 +65,7 @@ public class OrderAction {
 		// 解析json字符串
 		JSONObject jsonObject = JSONObject.fromObject(orderReq);
 		Integer customerId = jsonObject.getInt("customerId");
+		String deliveryDate = jsonObject.getString("deliveryDate");
 		
 		JSONArray orderDetailListArray = JSONArray.fromObject(jsonObject.get("orderDetail")); 
 		
@@ -80,6 +84,7 @@ public class OrderAction {
 			orderDetailDtos.add(dto);
 		}
 		orderCreateRequestDto.setCustomerId(customerId);
+		orderCreateRequestDto.setDeliveryDate(deliveryDate);
 		orderCreateRequestDto.setOrderDetail(orderDetailDtos);
 		
 		return orderCreateRequestDto;

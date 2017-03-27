@@ -33,7 +33,6 @@ public class ManageAction {
 	private String deliveryDate;
 	private String orderDescription;
 	private List<String> lamp;
-//	private List<String> price;
 	private List<String> number;
 	private List<String> description;
 	private String[] price;
@@ -86,14 +85,6 @@ public class ManageAction {
 		this.lamp = lamp;
 	}
 
-//	public List<String> getPrice() {
-//		return price;
-//	}
-//
-//	public void setPrice(List<String> price) {
-//		this.price = price;
-//	}
-
 	public List<String> getNumber() {
 		return number;
 	}
@@ -137,7 +128,6 @@ public class ManageAction {
 	 * 根据指定客户的所有订单
 	 */
 	public void showOrderByCustomer() {
-		System.out.println(customerId);
 		List<Order> o = orderService.findAllOrderByCustomerId(customerId);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/plain;charset=UTF-8");
@@ -153,7 +143,6 @@ public class ManageAction {
 	 * 根据订单查找订单详情
 	 */
 	public void showOrderDetailBuOrderId() {
-		System.out.println(orderId);
 		List<OrderDetail> od = orderService.findOrderDetails(orderId);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/plain;charset=UTF-8");
@@ -163,30 +152,6 @@ public class ManageAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * 先添加总订单
-	 */
-	public void addOrder() {
-		System.out.println(customerId);
-		System.out.println(orderDescription);
-		System.out.println(price);
-//		int totalPrice = 0;
-//		for (String p : price) {
-//			totalPrice += Integer.parseInt(p);
-//		}
-//		System.out.println(totalPrice);
-//		orderService.saveOrder(totalPrice, customerId, orderDescription);
-	}
-	
-	/**
-	 * 添加订单详情
-	 */
-	public void addOrderDetail() {
-//		int newOrderId = orderService.getNewOrderId();
-		
-//		orderService.saveOrderDetail(lamp, price, number, description, newOrderId);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 public class OrderCreateRequestDto {
 	
 	private int customerId;
+	private String deliveryDate;
 	private List<OrderDetailDto> orderDetail;
 	
 	public int getCustomerId() {
@@ -19,5 +20,10 @@ public class OrderCreateRequestDto {
 	public void setOrderDetail(List<OrderDetailDto> orderDetail) {
 		this.orderDetail = orderDetail;
 	}
-	
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
 }

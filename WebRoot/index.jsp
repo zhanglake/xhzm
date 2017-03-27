@@ -27,7 +27,7 @@
 			#content_panel {
 				margin: auto;
 				margin-top: 50px;
-				width: 262px;
+				width: 268px;
 			}
 			#content_panel tr {
 				height: 48px;

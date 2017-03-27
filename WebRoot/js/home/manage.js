@@ -38,7 +38,7 @@ var ManageController = {
 				success: function (data) {
 					if (data.status === "success") {
 						$.z_notice("success");
-						$("#customer_table").bootstrapTable('refresh', {url: "manage!findAllCustomers.action"});
+						$("#customer_table").bootstrapTable('refresh');
 						ManageController.clearForm("customer");
 					}
 				},
@@ -114,6 +114,7 @@ var ManageController = {
 		$("#save-order").click(function () {
 			var n = ManageController.now_order_line;
 			var orderDetailList = new Array();
+			var deliveryDate = $("#delivery_date").val();
 			for (var i = 1; i <= n; i++) {
 				var lampName = $("#order-lamp-" + i).val();
 				var lampPrice = $("#lamp-price-" + i).val();
@@ -129,6 +130,7 @@ var ManageController = {
 			}
 			var orderDto = {
 					"customerId": ManageController.customer_id,
+					"deliveryDate": deliveryDate,
 					"orderDetail": orderDetailList
 			}
 			var requestData = 'orderReq =' + JSON.stringify(orderDto);
@@ -140,7 +142,7 @@ var ManageController = {
 				success: function (data) {
 					if (data.status === "success") {
 						$.z_notice("success");
-						$("#customer_order_table").bootstrapTable('refresh', {url: "manage!showOrderByCustomer.action"});
+						$("#customer_order_table").bootstrapTable('refresh');
 						ManageController.clearForm("order");
 					}
 				},
@@ -173,22 +175,10 @@ var ManageController = {
 	
 	// 加载客户订单表格
 	customerOrder : function(customer_id) {
+		$('#customer_order_table').bootstrapTable('destroy'); 
 		$('#customer_order_table').bootstrapTable({
-			url : 'manage!showOrderByCustomer.action',
-//			queryParams: function (params) {
-//				var temp = {
-//					limit: params.limit,
-//					offset: params.offset,
-//				};
-//				return temp;
-//			},
-//			ajax: {
-//				url: 'manage!showOrderByCustomer.action',
-//				type: 'post',
-//				dataType: 'json',
-//				data: {'customerId':customer_id}
-//			},
-			method : 'post',
+			url : 'manage!showOrderByCustomer.action?customerId=' + customer_id,
+			method : 'get',
 			dataType : 'json',
 			pagination : true,
 			pageSize : 10,
@@ -220,47 +210,6 @@ var ManageController = {
 		});
 		ManageController.switchCustomerOrderTab();
 		
-//		$.ajax({
-//			url: 'manage!showOrderByCustomer.action',
-//			type: 'post',
-//			dataType: 'json',
-//			data: {'customerId':customer_id},
-//			success: function(result) {
-//				console.log(result);
-//				$('#customer_order_table').bootstrapTable({
-//					data: result,
-//					pagination : true,
-//					pageSize : 10,
-//					search : true,
-//					paginationPreText : '上一页',
-//					paginationNextText : '下一页',
-//					showExport : true,
-//					exportDataType : "basic",
-//					columns : [{
-//							field : 'createDate',
-//							title : '订单日期'
-//						}, {
-//							field : 'deliveryDate',
-//							title : '配送日期 '
-//						}, {
-//							field : 'totalPrice',
-//							title : '订单总金额 '
-//						}, {
-//							field : 'description',
-//							title : '备注'
-//						}, {
-//							title : '操作',
-//							align : 'center',
-//							formatter : function(value, row, index) {
-//											return ['<a class="like" href="javascript:void(0)">查看详细</a>' ];
-//										},
-//							events : ManageController.customerOrderOperateEvents
-//						}],
-//				});
-//				
-//				ManageController.switchCustomerOrderTab();
-//			}
-//		});
 	},
 	
 	customerOrderOperateEvents: {
@@ -272,40 +221,33 @@ var ManageController = {
 	
 	// 加载订单详情表格
 	orderDetail: function(customer_order_id) {
-		$.ajax({
-			url: 'manage!showOrderDetailBuOrderId.action',
-			type: 'post',
-			dataType: 'json',
-			data: {'orderId':customer_order_id},
-			success: function(result) {
-				console.log(result);
-				$('#order_table').bootstrapTable({
-					pagination : true,
-					pageSize : 10,
-					search : true,
-					paginationPreText : '上一页',
-					paginationNextText : '下一页',
-					showExport : true,
-					exportDataType : "basic",
-					columns : [{
-							field : 'lamp',
-							title : '品名'
-						},{
-							field : 'price',
-							title : '单价 '
-						},{
-							field : 'number',
-							title : '数量 '
-						}, {
-							field : 'description',
-							title : '备注'
-						}],
-					data: result
-				});
-				
-				ManageController.switchOrderTab();
-			}
-		});
+		$('#order_table').bootstrapTable('destroy'); 
+		$('#order_table').bootstrapTable({
+			url: 'manage!showOrderDetailBuOrderId.action?orderId=' + customer_order_id,
+			method : 'get',
+			dataType : 'json',
+			pagination : true,
+			pageSize : 10,
+			search : true,
+			paginationPreText : '上一页',
+			paginationNextText : '下一页',
+			showExport : true,
+			exportDataType : "basic",
+			columns : [{
+				field : 'lamp',
+				title : '品名'
+			},{
+				field : 'price',
+				title : '单价 '
+			},{
+				field : 'number',
+				title : '数量 '
+			}, {
+				field : 'description',
+				title : '备注'
+			}]
+		});	
+		ManageController.switchOrderTab();
 	},
 	
 	// 切换到客户查询
